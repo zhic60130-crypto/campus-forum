@@ -1,17 +1,20 @@
 # Forum · 校园普通论坛（React）
 
-React + Vite + TypeScript + Tailwind + shadcn/ui。数据层对接 Spring Boot 后端 `campus-forum-server`。
+React + Vite + TypeScript + Tailwind + shadcn/ui。数据层对接 Spring Boot 后端（monorepo 的 `server/`）。
 
 ## 启动
 
-1. 后端（H2 local profile）：
+后端默认 profile 是 `mysql`（MySQL + Redis + MinIO）。在仓库根目录：
 
 ```bash
-cd "E:\AIProjects\graduation project\campus-forum-server"
-.\mvnw.cmd spring-boot:run
+cd server
+docker compose up -d
+./mvnw spring-boot:run -Dspring-boot.run.profiles=mysql
 ```
 
-2. 前端：
+无 Docker 时，在 `server/` 使用 H2：`./mvnw spring-boot:run -Dspring-boot.run.profiles=local`。端口、凭据与演示账号见仓库根目录 `README.md`。
+
+前端（本目录）：
 
 ```bash
 npm install

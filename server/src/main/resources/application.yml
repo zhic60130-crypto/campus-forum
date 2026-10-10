@@ -2,7 +2,9 @@ spring:
   application:
     name: campus-forum-server
   profiles:
-    active: local
+    # mysql: MySQL + Redis + MinIO (start server/docker-compose.yml first).
+    # Optional zero-Docker path: -Dspring-boot.run.profiles=local
+    active: mysql
   servlet:
     multipart:
       max-file-size: 10MB
