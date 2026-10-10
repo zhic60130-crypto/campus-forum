@@ -26,7 +26,9 @@ services:
       - "6379:6379"
 
   minio:
-    image: minio/minio:latest
+    # Docker Hub no longer allows anonymous pulls of minio/minio.
+    # pgsty/silo is a MinIO-compatible server: same command, MINIO_ROOT_* env, ports 9000/9001.
+    image: pgsty/silo:RELEASE.2026-09-16T00-00-00Z
     container_name: campus-forum-minio
     environment:
       MINIO_ROOT_USER: minioadmin

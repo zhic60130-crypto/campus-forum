@@ -18,7 +18,7 @@ export function LoginPage() {
   const navigate = useNavigate()
   const [params] = useSearchParams()
   const [username, setUsername] = useState('admin')
-  const [password, setPassword] = useState('password123')
+  const [password, setPassword] = useState('123456')
   const [loading, setLoading] = useState(false)
 
   async function onSubmit(e: React.FormEvent) {
@@ -40,7 +40,7 @@ export function LoginPage() {
     <Card>
       <CardHeader>
         <CardTitle>登录</CardTitle>
-        <CardDescription>演示账号 admin / password123</CardDescription>
+        <CardDescription>演示账号 admin / 123456</CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={(e) => void onSubmit(e)}>

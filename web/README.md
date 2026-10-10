@@ -23,7 +23,7 @@ npm run dev
 
 Vite 将 `/api` 代理到 `http://localhost:8080`。
 
-演示账号：`admin` / `password123`（另有 `pixel`、`nova`）。
+演示账号：`admin` / `123456`（另有 `pixel`、`nova`）。
 
 ## 结构
 

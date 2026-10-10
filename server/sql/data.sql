@@ -4,7 +4,7 @@ INSERT INTO account (id, username, email, password_hash, avatar, role) VALUES
 (1, 'admin', 'admin@demo.local', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iKTVKIUi', '', 'ADMIN'),
 (2, 'pixel', 'pixel@demo.local', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iKTVKIUi', '', 'USER'),
 (3, 'nova', 'nova@demo.local', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iKTVKIUi', '', 'USER');
--- password for all seed users: password123
+-- password for all seed users: 123456
 
 INSERT INTO category (id, label, color, icon, desc_text, sort) VALUES
 ('daily', '日常闲聊', '#409EFF', 'ChatDotRound', '生活琐事与轻松话题', 1),
@@ -50,7 +50,7 @@ INSERT INTO banner (id, title, subtitle, image_url, link, enabled, sort) VALUES
 INSERT INTO announcement (content, sort) VALUES
 ('文明发言，禁止违法违规、人身攻击与广告引流。', 1),
 ('发帖请选择合适分类与标签，标题与内容尽量清晰完整。', 2),
-('本站已接入 JWT 后端，演示账号 admin / password123。', 3);
+('本站已接入 JWT 后端，演示账号 admin / 123456。', 3);
 
 INSERT INTO friend_link (name, url, sort) VALUES
 ('JS Design', 'https://js.design/', 1),

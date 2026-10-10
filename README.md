@@ -28,6 +28,8 @@ docker compose up -d
 
 MySQL 首次启动会执行 `server/sql/schema.sql` 与 `server/sql/data.sql`。等 `campus-forum-mysql` 健康后再启动后端。
 
+对象存储镜像是 `pgsty/silo:RELEASE.2026-09-16T00-00-00Z`。Docker Hub 已拒绝匿名拉取 `minio/minio`；Silo 兼容原有启动命令、`MINIO_ROOT_USER` / `MINIO_ROOT_PASSWORD`，以及 API `9000`、控制台 `9001`。
+
 ### 2. 后端
 
 仍在 `server/`：
@@ -70,8 +72,8 @@ Vite 将 `/api` 代理到 `http://localhost:8080`。
 
 | 用户名 | 密码 | 角色 |
 |---|---|---|
-| admin | password123 | ADMIN |
-| pixel / nova | password123 | USER |
+| admin | 123456 | ADMIN |
+| pixel / nova | 123456 | USER |
 
 ## 可选：H2（`local` profile）
 

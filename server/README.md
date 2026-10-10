@@ -17,6 +17,8 @@ Windows：`mvnw.cmd spring-boot:run -Dspring-boot.run.profiles=mysql`
 
 `src/main/resources/application.yml` 中 `spring.profiles.active` 已是 `mysql`，因此 `./mvnw spring-boot:run` 同样使用该 profile。MySQL 首次初始化会装入 `sql/schema.sql` 与 `sql/data.sql`，等容器健康后再启动后端。
 
+对象存储使用 `pgsty/silo:RELEASE.2026-09-16T00-00-00Z`（MinIO 兼容）。Docker Hub 已拒绝匿名拉取 `minio/minio`；启动命令、`MINIO_ROOT_*` 与端口 `9000` / `9001` 不变。
+
 服务：`http://localhost:8080`
 
 ### 端口与凭据
@@ -31,8 +33,8 @@ Windows：`mvnw.cmd spring-boot:run -Dspring-boot.run.profiles=mysql`
 
 | 用户名 | 密码 | 角色 |
 |---|---|---|
-| admin | password123 | ADMIN |
-| pixel / nova | password123 | USER |
+| admin | 123456 | ADMIN |
+| pixel / nova | 123456 | USER |
 
 ## 可选：H2（`local` profile）
 

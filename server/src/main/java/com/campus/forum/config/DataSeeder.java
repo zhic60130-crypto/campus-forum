@@ -44,7 +44,7 @@ public class DataSeeder implements ApplicationRunner {
             return;
         }
         log.info("Seeding demo data...");
-        String hash = passwordEncoder.encode("password123");
+        String hash = passwordEncoder.encode("123456");
 
         Account admin = account("admin", "admin@demo.local", hash, "ADMIN");
         Account pixel = account("pixel", "pixel@demo.local", hash, "USER");
@@ -93,13 +93,13 @@ public class DataSeeder implements ApplicationRunner {
         if (announcementMapper.selectCount(null) == 0) {
             announcement("文明发言，禁止违法违规、人身攻击与广告引流。", 1);
             announcement("发帖请选择合适分类与标签，标题与内容尽量清晰完整。", 2);
-            announcement("演示账号 admin / password123（也可用 pixel、nova）。", 3);
+            announcement("演示账号 admin / 123456（也可用 pixel、nova）。", 3);
         }
         if (friendLinkMapper.selectCount(null) == 0) {
             friend("JS Design", "https://js.design/", 1);
             friend("VForm", "https://www.vform666.com/", 2);
         }
-        log.info("Demo data ready. admin / password123");
+        log.info("Demo data ready. admin / 123456");
     }
 
     /**

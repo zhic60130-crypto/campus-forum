@@ -13,7 +13,7 @@ export const seedAnnouncements: Announcement[] = [
   },
   {
     id: 'a3',
-    content: '演示账号 admin / password123，欢迎发帖交流。',
+    content: '演示账号 admin / 123456，欢迎发帖交流。',
     sort: 3,
   },
 ]

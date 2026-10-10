@@ -8,7 +8,7 @@ export const seedUsers: UserRecord[] = [
     avatar: '',
     bio: '论坛管理员',
     role: 'ADMIN',
-    password: 'password123',
+    password: '123456',
   },
   {
     id: 'u2',
@@ -17,7 +17,7 @@ export const seedUsers: UserRecord[] = [
     avatar: '',
     bio: '喜欢摄影与夜跑',
     role: 'USER',
-    password: 'password123',
+    password: '123456',
   },
   {
     id: 'u3',
@@ -26,6 +26,6 @@ export const seedUsers: UserRecord[] = [
     avatar: '',
     bio: '资源整理狂魔',
     role: 'USER',
-    password: 'password123',
+    password: '123456',
   },
 ]

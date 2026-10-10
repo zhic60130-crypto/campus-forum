@@ -1,3 +1,6 @@
+-- Demo accounts (admin, pixel, nova) are inserted by DataSeeder when the account table is empty.
+-- Password for those accounts: 123456 (same password as server/sql/data.sql).
+
 MERGE INTO category (id, label, color, icon, desc_text, sort) KEY(id) VALUES
 ('daily', '日常闲聊', '#409EFF', 'ChatDotRound', '生活琐事与轻松话题', 1),
 ('friend', '真诚交友', '#9B6DFF', 'User', '找搭子、扩人脉', 2),
