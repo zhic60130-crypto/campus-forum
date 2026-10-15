@@ -1,14 +1,17 @@
 # Forum · 校园普通论坛（React）
 
-React + Vite + TypeScript + Tailwind + shadcn/ui。数据层对接 Spring Boot 后端 `campus-forum-server`。
+> 仓库总览、双端启动与 Profile 说明见根目录 [README.md](../README.md)。
+
+React + Vite + TypeScript + Tailwind + shadcn/ui。数据层对接同 monorepo 下的 `server/` Spring Boot API。
 
 ## 启动
 
 1. 后端（H2 local profile）：
 
 ```bash
-cd "E:\AIProjects\graduation project\campus-forum-server"
-.\mvnw.cmd spring-boot:run
+cd ../server
+./mvnw spring-boot:run
+# Windows: mvnw.cmd spring-boot:run
 ```
 
 2. 前端：
