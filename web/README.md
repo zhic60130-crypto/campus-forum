@@ -21,7 +21,7 @@ npm install
 npm run dev
 ```
 
-Vite 将 `/api` 代理到 `http://localhost:8080`。
+开发地址默认为 `http://127.0.0.1:5173`（Vite 默认端口 **5173**，本仓库未改 `vite.config.ts` 的 `server.port`）。Vite 将 `/api` 代理到 `http://localhost:8080`（Spring Boot 默认 **8080**）。
 
 演示账号：`admin` / `password123`（另有 `pixel`、`nova`）。
 

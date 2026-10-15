@@ -54,7 +54,21 @@ campus-forum/
 
 ## 快速开始（默认 local / H2）
 
-**前置**：JDK 17、Node.js 与 npm、本机 **8080** 与 **5173** 端口可用。
+**前置**：JDK 17、Node.js 与 npm；本机需能占用下方**框架默认端口**（非本项目自定义端口）。
+
+### 访问地址与默认端口
+
+| 服务 | 默认端口 | 说明 |
+|---|---|---|
+| 后端 API | **8080** | [Spring Boot](https://docs.spring.io/spring-boot/reference/features/web.html) 默认 `server.port`；本仓库在 `server/src/main/resources/application.yml` 中显式设为 `8080` |
+| 前端页面（开发） | **5173** | [Vite](https://vite.dev/config/server-options.html#server-port) `npm run dev` 默认开发端口；`web/vite.config.ts` **未**改写 `server.port` |
+
+开发时典型访问：
+
+- 浏览器打开前端：`http://127.0.0.1:5173`（或 `http://localhost:5173`）
+- 直连后端 API：`http://localhost:8080`（前端通过 Vite 把 `/api` 代理到该地址）
+
+若 **5173** 已被占用，Vite 会自动尝试下一可用端口，以 `npm run dev` 终端输出为准。
 
 ### 1. 启动后端
 
@@ -66,8 +80,8 @@ cd server
 # Windows: mvnw.cmd spring-boot:run
 ```
 
-- API：`http://localhost:8080`
-- H2 控制台（仅 local）：`http://localhost:8080/h2-console`（JDBC URL 与账号见 `application.yml` 中 `local` 段）
+- API：`http://localhost:8080`（Spring Boot 默认端口 **8080**）
+- H2 控制台（仅 local）：`http://localhost:8080/h2-console`（同上端口；JDBC URL 与账号见 `application.yml` 中 `local` 段）
 
 首次启动且库为空时，`DataSeeder` 会写入演示数据。
 
@@ -79,8 +93,8 @@ npm install
 npm run dev
 ```
 
-- 页面：`http://127.0.0.1:5173`（以终端输出为准）
-- 浏览器请求 `/api/*` 由 Vite 代理到 `http://localhost:8080`（见 `web/vite.config.ts`）
+- 页面：`http://127.0.0.1:5173`（Vite 默认端口 **5173**；端口冲突时见上文）
+- 浏览器请求 `/api/*` 由 Vite 代理到 `http://localhost:8080`（后端默认 **8080**；见 `web/vite.config.ts`）
 
 ### 演示账号
 

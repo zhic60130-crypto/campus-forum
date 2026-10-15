@@ -14,7 +14,7 @@ cd server
 # Windows: mvnw.cmd spring-boot:run
 ```
 
-服务：`http://localhost:8080`
+服务：`http://localhost:8080`（Spring Boot 默认端口 **8080**，见 `application.yml` 的 `server.port`）
 
 演示账号：
 
