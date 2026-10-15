@@ -14,6 +14,6 @@ public class Category {
     private String color;
     private String icon;
     @TableField("desc_text")
-    private String desc;
+    private String descText;
     private Integer sort;
 }

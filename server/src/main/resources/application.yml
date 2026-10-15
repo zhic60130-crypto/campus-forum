@@ -2,7 +2,7 @@ spring:
   application:
     name: campus-forum-server
   profiles:
-    active: local
+    active: mysql
   servlet:
     multipart:
       max-file-size: 10MB
