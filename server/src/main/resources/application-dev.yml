@@ -1,0 +1,44 @@
+# 本地 / 开发：对接 docker compose（MySQL + Redis + MinIO）
+# 与历史 mysql profile 等价（spring.profiles.group.mysql → dev）
+
+spring:
+  data:
+    redis:
+      host: ${REDIS_HOST:127.0.0.1}
+      port: ${REDIS_PORT:6379}
+      timeout: 3s
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/campus_forum?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: forum
+    password: forum123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  sql:
+    init:
+      mode: never
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+forum:
+  jwt:
+    secret: campus-forum-jwt-secret-change-me-please-32bytes-min
+    expire-hours: 24
+  cors:
+    allowed-origins: "http://localhost:5173,http://127.0.0.1:5173,http://localhost:5174,http://127.0.0.1:5174,http://localhost:5175,http://127.0.0.1:5175,http://localhost:5176,http://127.0.0.1:5176,http://localhost:5177,http://127.0.0.1:5177"
+  upload:
+    mode: minio
+    local-dir: ./uploads
+    public-base-url: http://127.0.0.1:9000/campus-forum
+  minio:
+    endpoint: http://127.0.0.1:9000
+    access-key: minioadmin
+    secret-key: minioadmin
+    bucket: campus-forum
+  interact:
+    memory-fallback: false
+
+logging:
+  level:
+    com.campus.forum: DEBUG
+    org.springframework.web: INFO

@@ -4,13 +4,14 @@ React + Vite + TypeScript + Tailwind + shadcn/ui。数据层对接 Spring Boot �
 
 ## 启动
 
-1. 后端（默认 MySQL，需先 `docker compose up -d`，见仓库根目录 README）：
+1. 后端（默认 `dev` profile / MySQL 栈，需先 `docker compose up -d`，见仓库根目录 README）：
 
 ```bash
 cd ../server
 ./mvnw spring-boot:run
 # Windows: mvnw.cmd spring-boot:run
-# 无 Docker 时可：mvnw spring-boot:run -Dspring-boot.run.profiles=local
+# 无 Docker：mvnw spring-boot:run -Dspring-boot.run.profiles=local
+# 生产：SPRING_PROFILES_ACTIVE=prod（见 server/README.md 环境变量）
 ```
 
 2. 前端：

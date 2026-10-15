@@ -2,9 +2,18 @@
 
 普通论坛后端（Spring Boot 3 + JWT + MyBatis-Plus + Redis/MinIO）。对齐柏码 JWT 论坛方案，**不含**教务/天气等扩展。
 
-## 本地快速启动（默认 MySQL）
+## 配置与 Profile
 
-默认 `mysql` profile：连接本机 MySQL、Redis，图片上传走 MinIO。请先启动依赖：
+| 文件 | Profile | 说明 |
+|---|---|---|
+| `application.yml` | （公共） | 应用名、端口、MyBatis 公共项；默认 `spring.profiles.active=dev` |
+| `application-dev.yml` | `dev` | 本地开发：MySQL + Redis + MinIO（与 `docker-compose.yml` 默认账号一致） |
+| `application-prod.yml` | `prod` | 生产：敏感项仅 `${ENV}`，日志收敛，关闭 H2 console |
+| `application.yml`（`---` 段） | `local` | H2 文件库，无需 Docker |
+
+**兼容**：`mysql` 为 profile 组别名，激活时自动包含 `dev`（与原先默认 `mysql` 行为一致）。
+
+### 本地快速启动（默认 dev）
 
 ```bash
 cd server
@@ -22,15 +31,59 @@ docker compose up -d
 | admin | password123 | ADMIN |
 | pixel / nova | password123 | USER |
 
-### 开发用连接信息（仅本地）
+### 切换 Profile
 
-`application.yml` 中 `mysql` profile 默认：
+```bash
+# dev（默认）
+./mvnw spring-boot:run
 
-- JDBC：`jdbc:mysql://127.0.0.1:3306/campus_forum`（用户 `forum` / `forum123`，与 `docker-compose.yml` 一致）
+# prod
+SPRING_PROFILES_ACTIVE=prod ./mvnw spring-boot:run
+# 或 Maven：
+./mvnw spring-boot:run -Dspring-boot.run.profiles=prod
+
+# local（无 Docker）
+./mvnw spring-boot:run -Dspring-boot.run.profiles=local
+
+# 兼容旧文档中的 mysql
+./mvnw spring-boot:run -Dspring-boot.run.profiles=mysql
+```
+
+环境变量方式：`export SPRING_PROFILES_ACTIVE=dev|prod|local|mysql`
+
+### 开发用连接信息（dev / mysql）
+
+`application-dev.yml` 默认（仅本地，勿用于生产）：
+
+- JDBC：`jdbc:mysql://127.0.0.1:3306/campus_forum`（用户 `forum` / `forum123`）
 - Redis：`127.0.0.1:6379`
 - MinIO：`http://127.0.0.1:9000`，`minioadmin` / `minioadmin`，桶 `campus-forum`
 
-生产环境请通过环境变量或外部配置覆盖，勿将真实密钥提交仓库。
+### 生产环境变量（`prod` profile 必填）
+
+| 变量 | 说明 |
+|---|---|
+| `SPRING_DATASOURCE_URL` | MySQL JDBC URL |
+| `SPRING_DATASOURCE_USERNAME` | 数据库用户 |
+| `SPRING_DATASOURCE_PASSWORD` | 数据库密码 |
+| `REDIS_HOST` | Redis 主机 |
+| `FORUM_JWT_SECRET` | JWT 签名密钥（建议 ≥32 字节） |
+| `FORUM_CORS_ALLOWED_ORIGINS` | 允许的前端 Origin（逗号分隔） |
+| `FORUM_UPLOAD_PUBLIC_BASE_URL` | 上传文件对外访问基址 |
+| `FORUM_MINIO_ENDPOINT` | MinIO API 地址 |
+| `FORUM_MINIO_ACCESS_KEY` | MinIO access key |
+| `FORUM_MINIO_SECRET_KEY` | MinIO secret key |
+| `FORUM_MINIO_BUCKET` | MinIO 桶名 |
+
+可选：
+
+| 变量 | 默认 |
+|---|---|
+| `REDIS_PORT` | `6379` |
+| `REDIS_PASSWORD` | 空 |
+| `FORUM_JWT_EXPIRE_HOURS` | `24` |
+| `FORUM_UPLOAD_MODE` | `minio` |
+| `FORUM_UPLOAD_LOCAL_DIR` | `./uploads` |
 
 ### 回退：H2 本地模式（无 Docker）
 

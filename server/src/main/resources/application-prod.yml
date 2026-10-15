@@ -1,0 +1,49 @@
+# 生产 / 部署：敏感项仅通过环境变量注入，勿在仓库中写真实密钥
+
+spring:
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+      timeout: 3s
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  sql:
+    init:
+      mode: never
+  h2:
+    console:
+      enabled: false
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
+
+forum:
+  jwt:
+    secret: ${FORUM_JWT_SECRET}
+    expire-hours: ${FORUM_JWT_EXPIRE_HOURS:24}
+  cors:
+    allowed-origins: ${FORUM_CORS_ALLOWED_ORIGINS}
+  upload:
+    mode: ${FORUM_UPLOAD_MODE:minio}
+    local-dir: ${FORUM_UPLOAD_LOCAL_DIR:./uploads}
+    public-base-url: ${FORUM_UPLOAD_PUBLIC_BASE_URL}
+  minio:
+    endpoint: ${FORUM_MINIO_ENDPOINT}
+    access-key: ${FORUM_MINIO_ACCESS_KEY}
+    secret-key: ${FORUM_MINIO_SECRET_KEY}
+    bucket: ${FORUM_MINIO_BUCKET}
+  interact:
+    memory-fallback: false
+
+logging:
+  level:
+    root: WARN
+    com.campus.forum: INFO
+    org.springframework.web: WARN
+    org.apache.ibatis: WARN
