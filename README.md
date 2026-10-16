@@ -9,16 +9,16 @@
 
 ## 本地启动
 
-### 1. 依赖服务（MySQL + Redis + MinIO）
+本机开发统一使用 **MySQL**（配合 Redis、MinIO），无内置 H2 路径。
 
-后端默认使用 `mysql` profile，需要先启动 Docker 中的基础设施（仅本地开发用默认账号，勿用于生产）：
+### 1. 依赖服务
 
 ```bash
 cd server
 docker compose up -d
 ```
 
-| 服务 | 端口 | 开发默认账号 |
+| 服务 | 端口 | 开发默认账号（仅本地，勿用于生产） |
 |---|---|---|
 | MySQL | 3306 | 库 `campus_forum`，用户 `forum` / `forum123` |
 | Redis | 6379 | 无密码 |
@@ -26,11 +26,14 @@ docker compose up -d
 
 首次 `docker compose up` 会通过 `server/sql/schema.sql` 与 `data.sql` 初始化库表与演示数据。
 
+若使用本机已安装的 MySQL，请创建同名库与用户（或与 `docker-compose.yml` 一致），并执行上述 SQL 脚本。
+
+连接可通过环境变量覆盖：`MYSQL_HOST`、`MYSQL_PORT`、`MYSQL_DATABASE`、`MYSQL_USER`、`MYSQL_PASSWORD`。
+
 ### 2. 后端
 
 ```bash
 cd server
-chmod +x mvnw   # 若尚未可执行
 ./mvnw spring-boot:run
 # Windows: mvnw.cmd spring-boot:run
 ```
@@ -38,13 +41,6 @@ chmod +x mvnw   # 若尚未可执行
 服务：`http://localhost:8080`
 
 演示账号：`admin` / `password123`
-
-**临时使用 H2 文件库（无需 Docker）**：内存互动 + 本地上传，适合快速试跑：
-
-```bash
-./mvnw spring-boot:run -Dspring-boot.run.profiles=local
-# 或环境变量：SPRING_PROFILES_ACTIVE=local
-```
 
 ### 3. 前端
 
