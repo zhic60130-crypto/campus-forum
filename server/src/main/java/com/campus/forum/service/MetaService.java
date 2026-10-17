@@ -35,7 +35,7 @@ public class MetaService {
                     m.put("label", c.getLabel());
                     m.put("color", c.getColor());
                     m.put("icon", c.getIcon());
-                    m.put("desc", c.getDesc());
+                    m.put("desc", c.getDescText());
                     m.put("count", counts.getOrDefault(c.getId(), 0));
                     return m;
                 })

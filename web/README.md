@@ -4,11 +4,12 @@ React + Vite + TypeScript + Tailwind + shadcn/ui。数据层对接 Spring Boot �
 
 ## 启动
 
-1. 后端（H2 local profile）：
+1. 后端（MySQL + Redis + MinIO，先 `cd ../server && docker compose up -d`，见仓库根目录 README）：
 
 ```bash
-cd "E:\AIProjects\graduation project\campus-forum-server"
-.\mvnw.cmd spring-boot:run
+cd ../server
+./mvnw spring-boot:run
+# Windows: mvnw.cmd spring-boot:run
 ```
 
 2. 前端：

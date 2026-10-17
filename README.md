@@ -9,7 +9,28 @@
 
 ## 本地启动
 
-### 后端（H2 local）
+本机开发统一使用 **MySQL**（配合 Redis、MinIO），无内置 H2 路径。
+
+### 1. 依赖服务
+
+```bash
+cd server
+docker compose up -d
+```
+
+| 服务 | 端口 | 开发默认账号（仅本地，勿用于生产） |
+|---|---|---|
+| MySQL | 3306 | 库 `campus_forum`，用户 `forum` / `forum123` |
+| Redis | 6379 | 无密码 |
+| MinIO | 9000（API）、9001（控制台） | `minioadmin` / `minioadmin` |
+
+首次 `docker compose up` 会通过 `server/sql/schema.sql` 与 `data.sql` 初始化库表与演示数据。
+
+若使用本机已安装的 MySQL，请创建同名库与用户（或与 `docker-compose.yml` 一致），并执行上述 SQL 脚本。
+
+连接可通过环境变量覆盖：`MYSQL_HOST`、`MYSQL_PORT`、`MYSQL_DATABASE`、`MYSQL_USER`、`MYSQL_PASSWORD`。
+
+### 2. 后端
 
 ```bash
 cd server
@@ -21,7 +42,7 @@ cd server
 
 演示账号：`admin` / `password123`
 
-### 前端
+### 3. 前端
 
 ```bash
 cd web
@@ -30,3 +51,5 @@ npm run dev
 ```
 
 Vite 将 `/api` 代理到 `http://localhost:8080`。
+
+更多 API 与配置说明见 [server/README.md](server/README.md)。

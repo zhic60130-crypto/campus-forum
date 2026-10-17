@@ -49,8 +49,7 @@ public class SecurityConfig {
                                 "/api/topics/*",
                                 "/api/topics/*/comments",
                                 "/api/banners",
-                                "/api/files/**",
-                                "/h2-console/**"
+                                "/api/files/**"
                         ).permitAll()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .requestMatchers("/api/**").authenticated()
