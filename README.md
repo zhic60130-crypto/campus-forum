@@ -9,6 +9,8 @@
 
 ## 本地启动
 
+**Windows 一键启动（开发）：** 在仓库根目录双击 `start.bat`（或 `start.ps1`）。脚本会检查 JDK 17 / Node.js、安装前端依赖，并分别启动 `server`（8080）与 `web`（5173）。仍须先在本机或 Docker 中准备好 MySQL / Redis / MinIO（见下文）。
+
 本机开发统一使用 **MySQL**（配合 Redis、MinIO），无内置 H2 路径。
 
 ### 1. 依赖服务

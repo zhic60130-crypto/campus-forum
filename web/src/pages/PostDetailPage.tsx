@@ -62,10 +62,15 @@ export function PostDetailPage() {
     }
     try {
       await action()
-      await load()
     } catch (err) {
       toast.error(err instanceof Error ? err.message : '操作失败')
     }
+  }
+
+  function appendComment(comment: Comment) {
+    setComments((list) =>
+      list.some((item) => item.id === comment.id) ? list : [...list, comment],
+    )
   }
 
   if (loading) {
@@ -130,7 +135,16 @@ export function PostDetailPage() {
             className={post.liked ? 'text-red-600' : undefined}
             onClick={() =>
               void requireLogin(async () => {
-                await toggleTopicLikeApi(post.id)
+                const result = await toggleTopicLikeApi(post.id)
+                setPost((current) =>
+                  current
+                    ? {
+                        ...current,
+                        liked: result.liked,
+                        likeCount: result.likeCount,
+                      }
+                    : current,
+                )
               })
             }
           >
@@ -146,7 +160,16 @@ export function PostDetailPage() {
             className={post.favorited ? 'text-amber-600' : undefined}
             onClick={() =>
               void requireLogin(async () => {
-                await toggleTopicFavoriteApi(post.id)
+                const result = await toggleTopicFavoriteApi(post.id)
+                setPost((current) =>
+                  current
+                    ? {
+                        ...current,
+                        favorited: result.favorited,
+                        favoriteCount: result.favoriteCount,
+                      }
+                    : current,
+                )
               })
             }
           >
@@ -194,11 +217,25 @@ export function PostDetailPage() {
 
       <section className="flex flex-col gap-4">
         <h2 className="text-lg font-semibold">回复 ({comments.length})</h2>
-        <ReplyComposer postId={post.id} onCreated={() => void load()} />
+        <ReplyComposer postId={post.id} onCreated={appendComment} />
         <ReplyList
           postId={post.id}
           comments={comments}
-          onChange={() => void load()}
+          onCreated={appendComment}
+          onLiked={(commentId, liked, likeCount) =>
+            setComments((list) =>
+              list.map((item) =>
+                item.id === commentId ? { ...item, liked, likeCount } : item,
+              ),
+            )
+          }
+          onDeleted={(commentId) =>
+            setComments((list) =>
+              list.filter(
+                (item) => item.id !== commentId && item.parentId !== commentId,
+              ),
+            )
+          }
         />
       </section>
 
