@@ -17,10 +17,18 @@ import { ReplyComposer } from './ReplyComposer'
 type Props = {
   postId: string
   comments: Comment[]
-  onChange: () => void
+  onCreated: (comment: Comment) => void
+  onLiked: (id: string, liked: boolean, likeCount: number) => void
+  onDeleted: (id: string) => void
 }
 
-export function ReplyList({ postId, comments, onChange }: Props) {
+export function ReplyList({
+  postId,
+  comments,
+  onCreated,
+  onLiked,
+  onDeleted,
+}: Props) {
   const user = useAuthStore((s) => s.user)
   const [replyToId, setReplyToId] = useState<string | null>(null)
   const roots = comments.filter((c) => !c.parentId)
@@ -33,8 +41,8 @@ export function ReplyList({ postId, comments, onChange }: Props) {
       return
     }
     try {
-      await toggleCommentLikeApi(id)
-      onChange()
+      const result = await toggleCommentLikeApi(id)
+      onLiked(id, result.liked, result.likeCount)
     } catch (err) {
       toast.error(err instanceof Error ? err.message : '操作失败')
     }
@@ -44,7 +52,7 @@ export function ReplyList({ postId, comments, onChange }: Props) {
     try {
       await deleteCommentApi(postId, id)
       toast.success('评论已删除')
-      onChange()
+      onDeleted(id)
     } catch (err) {
       toast.error(err instanceof Error ? err.message : '删除失败')
     }
@@ -101,9 +109,9 @@ export function ReplyList({ postId, comments, onChange }: Props) {
                     replyToName={root.authorName}
                     compact
                     onCancel={() => setReplyToId(null)}
-                    onCreated={() => {
+                    onCreated={(comment) => {
                       setReplyToId(null)
-                      onChange()
+                      onCreated(comment)
                     }}
                   />
                 ) : null}

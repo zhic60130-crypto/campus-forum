@@ -6,13 +6,14 @@ import { Button } from '@/components/ui/button'
 import { Field, FieldGroup, FieldLabel } from '@/components/ui/field'
 import { Textarea } from '@/components/ui/textarea'
 import { useAuthStore } from '@/stores/auth'
+import type { Comment } from '@/types'
 
 type Props = {
   postId: string
   parentId?: string | null
   replyToName?: string | null
   compact?: boolean
-  onCreated?: () => void
+  onCreated?: (comment: Comment) => void
   onCancel?: () => void
 }
 
@@ -42,14 +43,14 @@ export function ReplyComposer({
     }
     setSubmitting(true)
     try {
-      await createCommentApi(postId, {
+      const created = await createCommentApi(postId, {
         content,
         parentId,
         replyToName,
       })
       setContent('')
       toast.success('回复成功')
-      onCreated?.()
+      onCreated?.(created)
     } catch (err) {
       toast.error(err instanceof Error ? err.message : '回复失败')
     } finally {
